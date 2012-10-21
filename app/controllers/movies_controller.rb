@@ -9,7 +9,7 @@ class MoviesController < ApplicationController
   def index
     @sort = params[:sort] || session[:sort]
 	
-	#@movies = Movie.all
+	@movies = Movie.all
 	
 	if @sort == 'title'
 	  #sorted = {:order => :title}
