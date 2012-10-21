@@ -9,11 +9,18 @@ class MoviesController < ApplicationController
   def index
     @sort = params[:sort] || session[:sort]
 	
-	@movies = Movie.all
+	#@movies = Movie.all
 	
 	if @sort == 'title'
-	  ordering = {:order => :title}
+	  #sorted = {:order => :title}
+	  @movies = Movie.find(:all, :order => "title ASC")
 	end
+	
+	if @sort == 'release_date'
+	  #sorted = @movies.sort_by &:created_at
+	  @movies = Movie.find(:all, :order => "created_at DESC")
+	end
+	
   end
 
   def new
