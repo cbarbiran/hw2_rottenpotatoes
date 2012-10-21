@@ -7,7 +7,13 @@ class MoviesController < ApplicationController
   end
 
   def index
-    @movies = Movie.all
+    @sort = params[:sort] || session[:sort]
+	
+	@movies = Movie.all
+	
+	if @sort == 'title'
+	  ordering = {:order => :title}
+	end
   end
 
   def new
