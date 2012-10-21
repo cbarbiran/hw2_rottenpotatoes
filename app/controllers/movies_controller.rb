@@ -18,7 +18,7 @@ class MoviesController < ApplicationController
 	
 	if @sort == 'release_date'
 	  #sorted = @movies.sort_by &:created_at
-	  @movies = Movie.find(:all, :order => "created_at ASC")
+	  @movies = Movie.find(:all, :order => "release_date ASC")
 	end
 	
   end
