@@ -9,17 +9,37 @@ class MoviesController < ApplicationController
   def index
     @sort = params[:sort] || session[:sort]
 	
-	@movies = Movie.all
+	my_movie = Movie.new
+	@all_ratings = my_movie.ratings
+	
+	#@ratings = params[:ratings].keys
+	#if @selected_ratings.blank?
+	#	@selected_ratings = ['PG','PG-13','R']
+	#end
+	
+	@selected_ratings = @all_ratings
+	if params[:ratings].present?
+		@selected_ratings = params[:ratings].keys
+	end
+	
+	@movies = Movie.find_all_by_rating(@selected_ratings)
 	
 	if @sort == 'title'
-	  #sorted = {:order => :title}
 	  @movies = Movie.find(:all, :order => "title ASC")
+	  #@movies = Movie.order("title ASC")
+	  #@movies = Movie.find_all_by_rating(@selected_ratings, :order => "title ASC")
 	end
 	
 	if @sort == 'release_date'
-	  #sorted = @movies.sort_by &:created_at
 	  @movies = Movie.find(:all, :order => "release_date ASC")
 	end
+	
+	
+	
+	#@selected_ratings = (params[:ratings].present? ? params[:ratings].keys : [])
+	
+	#@movies = Movie.all
+	
 	
   end
 
